@@ -3,6 +3,6 @@ SIMULATING ELECTRICAL CIRCUITS.. maybe more
 Read ReadmeFirst
 
 
-# NEEDS FLASK on system or in venv
+# NEEDS FLASK 
 
 type python3 run.py in the root project dir
