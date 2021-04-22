@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    {% block headofprac %}
+
+    {% endblock headofprac %}
+    {% if title %}
+    <title>SIMLAB - {{title}}</title>
+    {% else %}
+    <title>SIMLAB</title>
+    {% endif %}
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="/">SIMLAB</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item"> <a class="nav-link" href="/home">HOME</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item dropdown"> <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">Experiments</a>
+                <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
+                  <a href="/aE" class="dropdown-item" >Analog Electronics</a>
+                  <a href="/dcM1" class="dropdown-item">DC machines 1</a>
+                  <a href="/icApp" class="dropdown-item">IC applications</a>
+                  <a href="/eMes" class="dropdown-item">Electrical Measurements</a>
+                  <a href="/drives" class="dropdown-item">Electrical Drives</a>
+                </div>          
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <main role="main" class="container">
+        <div class="row">
+            <!-- Outside sidenav main page content -->
+            <div id="main">
+                {% block Title %}{% endblock Title %}
+                <div class="container row" id="manualbtn">
+                    <button class="btn btn-outline-dark btn-lg btn-block" type="button" data-toggle="collapse"
+                        data-target="#labmanual" aria-expanded="false" aria-controls="labmanual">
+                        Lab Manual
+                    </button>
+                </div>
+                <div class="container collapse row border rounded my-0" id="labmanual">
+
+                    <div class="container dropdown mx-2 my-2">
+                        <button class="btn btn-outline-dark dropdown-toggle btn-block" type="button"
+                            id="ContentsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="list-example">
+                            Contents
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right text-center" id="Contentitems"
+                            aria-labelledby="ContentsButton" style="border:none">
+                            <a class="list-group-item list-group-item-secondary list-group-item-action active dropdown-menu-item"
+                                href="#aim" target="_parent">Aim</a>
+                            <a class="list-group-item list-group-item-secondary list-group-item-action dropdown-menu-item"
+                                href="#theory" target="_parent">Theory</a>
+                            <a class="list-group-item list-group-item-secondary list-group-item-action dropdown-menu-item"
+                                href="#formula" target="_parent">Formula</a>
+                            <a class="list-group-item list-group-item-secondary list-group-item-action dropdown-menu-item"
+                                href="#procedure" target="_parent">Procedure</a>
+                        </div>
+                    </div>
+
+                    <!--Scrollspy lab manual content set offset properly-->
+                    {% block labmanual %} 
+                    {% endblock labmanual %}
+
+                </div>
+                <div class="container row border rounded my-3" id="practical">
+                    <div class=" container row border border-dark rounded mx-0 my-3" id="dashboard">
+                        {% block dashboard %}
+
+                        {% endblock dashboard %}
+                    </div>
+                    <div class="container row border rounded mx-0 my-3" id="plot">
+                        {% block graph_table %}
+                        
+                        {% endblock graph_table %}
+                    </div>
+                </div>
+                <!-- Use any element to open the sidenav -->
+                <div id="open" class="container row my-1">
+                    <button class="btn btn-outline-dark btn-lg btn-block" type="button" onclick="openNav()">
+                        {% block obsbtnlabel %}
+                            
+                        {% endblock obsbtnlabel %}                  
+                    </button>
+                </div>
+            </div>
+            <!-- Content of sidenav -->
+            <div id="mySidenav" class="sidenav">
+                {% block sidenavbar %}
+                    
+                {% endblock sidenavbar %}
+                <div><button class="btn btn-lg closebtn btn-outline-dark" onclick="closeNav()">Click to close</button></div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        /* Set the width of the side navigation to 800px and the left margin of the page content to 450px */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "800px";
+            document.getElementById("main").style.marginLeft = "450px";
+            document.getElementById("open").style.display = "none";
+        }
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("open").style.display = "block";
+        }
+    </script>
+    {% block scriptofprac %}
+    {% endblock scriptofprac %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) { 
+          var scrollpos = localStorage.getItem('scrollpos');
+          if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+        window.onbeforeunload = function(e) {
+          localStorage.setItem('scrollpos', window.scrollY);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+{% extends 'layoutprac.html' %}
+
+{% block headofprac %}
+<style>
+.rotate {
+    animation: rotation 1s infinite linear;
+  }
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+</style>
+{% endblock headofprac %}
+
+{% block Title %}
+<div class="container text-center"><h1>Speed Control of DC Motor using Type-A Chopper</h1></div><br>
+{% endblock Title %}
+
+{% block labmanual %}
+<!--Scrollspy lab manual content set offset properly-->
+<div class="container border rounded my-2" data-spy="scroll" data-target="#Contentitems" data-offset="330" class="scrollspy-example" 
+style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height:400px ; width: 1200px; overflow-y: scroll">
+            <div class="container" style="padding-top:60px;" id="aim">
+                <h2>Aim</h2>
+                <p>Speed control of series wound DC Motor by using Type-A Chopper (First quadrant operation, chopper varies the duty-cycle of supplied voltage).
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="theory">
+                <h2>Theory</h2>
+                <p>
+                    <p>A DC series motor is a machine that is used at a place where high torque operating conditions are required. It is a machine whose field
+                        winding is associated in series with the armature winding of the motor. Due to this series arrangement, the motor is able to produce 
+                        more starting torque compared to other motors.
+                    </p>
+                    <center>
+                        <img src="{{url_for('static', filename='c1_theory.png')}}" alt="basic dc series motor">
+                    </center>
+                    <p>Being connected in series means the current through the armature and the field windings is equal 
+                        (Itotal= Ia= If), which allows the motor to draw a significant amount of current. In series wound motors, torque is 
+                        proportional to the square of current, so these motors are able to produce very high torque, especially at startup.
+                    </p>
+                    <p>Series wound DC motors are often used as starter motors for large equipment with high inertia loads, such as cranes and elevators. 
+                        They’re also found in consumer products that require only coarse speed control, such as blenders and hand tools.
+                    </p>
+                    <p>A chopper is a high speed “on" or “off” semiconductor switch. It connects source to load and disconnect the load from source at
+                        a fast speed. In this manner, a chopped load voltage is obtained from a constant dc supply of magnitude Vs.
+                    </p>
+                    <p>During the period Ton, chopper is on and load voltage is equal to source voltage Vs. During the period Toff, chopper is off, load
+                        voltage is zero. Load current is continuous because during Toff the freewheeling diode conducts the load current.
+                        In this manner, a chopped dc voltage is produced at the load terminals.
+                    </p>
+                    <p>Class-A or Type-A chopper is defined as the chopper in which the direction of power flow is always from source to load. 
+                        The operation of this chopper is always in first quadrant. This is the reason; it is also known as First Quadrant Chopper. 
+                        In this type of chopper, the output voltage and load current are positive all the time. A step-down chopper is an example of Class-A or Type-A chopper.
+                        The DC series motor acts like an RLE load for our chopper.
+                    </p>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="formula">
+                <h2>Formula</h2>
+                <p>
+                    <center>
+                        <img width="100%" src="{{url_for('static', filename='c2_theory.png')}}" alt="formula1">
+                        <img width="100%" src="{{url_for('static', filename='c3_theory.png')}}" alt="formula2">
+                        <img width="100%" src="{{url_for('static', filename='c4_theory.png')}}" alt="formula3">
+                    </center>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="procedure">
+                <h2>Procedure</h2>
+                <p>
+                    <p>1) Vary the value of &alpha; to see the variation in speed of rotor. The animation speed is not 
+                        a representation of actual rotor speed in no way or sense (only depicts whether rotor is
+                        moving or not). The value of inductor (L) is not needed
+                    </p>
+                    <p>2) The voltmeter reading (Vt) is plotted against time below the controls. This gives us an idea of the
+                        duty-cycle of input voltage for the motor. Armature current (Ia), torque and source voltage (Vs) are
+                        constants.<br>  Ia = 300 A,   Torque = k*Ia*Ia = 0.004 * 300 * 300 = 360 N-m
+                    </p>
+                    <p>3) With variation in duty-cycle, the average terminal voltage across the motor also varies. In our model,
+                        &alpha; goes from 7% to 100% (It is noteworthy, that Ia current remains almost same over this entire range
+                        because series inductance prevents sudden change of current). 
+                    </p>
+                    <p>4) For a certain setting of &alpha; record the values of all parameters of the motor as a reading in the 
+                        observation table by clicking Append Table button. You can delete any reading whenever you wish to do so
+                        by clicking the delete button beside each reading in the table. Reset button resets the motor and empties
+                        the observation table (deletes all readings).                        
+                    </p>
+                    <p>5) Click on Observation Table button for seeing all the detailed readings (&alpha;, rotor speed, Vt and Eb) in
+                        a tabular format in the sidebar. 
+                    </p>
+                    <p>6) Verify your readings by calculating parameters by hand and comparing with them. If both sets of values 
+                        match (or the difference lies within error tolerance limits), then the the results are verified.
+                    </p>
+                    <p>
+                        <br><h4>Sources:</h4>
+                    </p>
+                    <p>
+                        Power Electronics by Dr. P.S. Bimbhra<br>
+                        <a href="https://www.circuitstoday.com/choppers-an-introduction">Circuits Today - 1</a><br>
+                        <a href="https://www.circuitstoday.com/types-of-chopper-circuits">Circuits Today - 2</a><br>
+                        <a href="https://www.theengineeringknowledge.com/dc-series-motor-working-and-applications/">Theengineeringknowledge</a><br>
+                        <a href="http://www.ijirst.org/articles/IJIRSTV2I10077.pdf">IJIRST - International Journal for Innovative Research in Science & Technology</a><br>
+                        <a href="https://www.electricaleasy.com/2014/07/characteristics-of-dc-motors.html">Electrical Easy</a><br>
+                        <a href="https://www.electrical4u.com/series-wound-dc-motor-or-dc-series-motor/">Electrical4u</a><br>
+                        <a href="https://www.elprocus.com/dc-series-motor-components-circuit-diagram-applications/">ELPROCUS - Electronics Projects Focus</a><br>
+                        <a href="https://circuitglobe.com/types-of-dc-motor.html">Circuit Globe</a><br>
+                        <a href="https://www.watelectrical.com/dc-series-motor-working-principle-speed-control-applications/">Wat Electrical</a><br>
+                        <a href="https://studyelectrical.com/2013/11/speed-control-of-dc-series-motors.html">Study Electrical</a><br>  
+                    </p>
+                </p>
+            </div>
+</div>
+{% endblock labmanual %}
+
+{% block dashboard %}
+<!--Create some faltu material-->
+<div id="circuitdiag" class="container text-lg-left" style="position: relative;">
+    <!--dashboard live circuit pic-->
+    <div style="position: absolute; top: 82%; right: 84%;">
+        <button type="button" onclick="event.preventDefault(); changepic();">
+            <img id="switch" name="on" src="{{url_for('static', filename='on.png')}}" height="30px" width="48px">
+        </button>
+        <input id="session" type="hidden" value="{{c.state}}">
+    </div>
+    <img src="{{url_for('static', filename='stat_rotor.png')}}" height="440px" width="100%">
+    <div id="rotor" style="position: absolute; top: 40%; right: 9%;">
+        <img src="{{url_for('static', filename='rotor - Copy.png')}}" class="rotate" height="100px" width="100px">
+    </div>
+    <div id="showvalues">
+        <div id="dispalpha" style="position: absolute; top: 26%; right: 81%;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 16pt;">
+                &alpha; = <input id="dispalpha" type="number" style="width: 60px" value="{% if c.alpha %}{{c.alpha}}{% else %}{% endif %}" readonly> %
+            </p>
+        </div>
+        <div style="position: absolute; top: 14%; left: 69%; display: block;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 16pt;">
+                Terminal Voltage = V<sub>t</sub> = {{c.Vt}} volt<br>
+                Torque = {{c.Te}} N-m<br>
+                Rotor speed = <input id="rotorspeed" type="number" value="{% if c.N %}{{c.N}}{% else %}0{% endif %}" style="width: 100px" readonly> rpm
+            </p>
+        </div>
+        <div style="position: absolute; top: 1%; right: 50%; display: block;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 16pt;">
+                I<sub>a</sub> = <input type="number" style="width: 55px;" value=300 readonly> amp
+            </p>
+        </div>
+        <div style="position: absolute; top: 63%; right: 36%; display: block;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 15pt;">
+                E<sub>b</sub> = <input type="number" style="width: 56px;" value="{% if c.Eb %}{{c.Eb}}{% else %}0{% endif %}" readonly><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volt
+            </p>
+        </div>
+        <div style="position: absolute; top: 46%; right: 52%; display: block;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 15pt;">
+                V<sub>t</sub> = <input type="number" style="width: 58px;" value="{% if c.Vt %}{{c.Vt}}{% else %}0{% endif %}" readonly>&nbsp;volt
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container row mx-3 my-3 border border-dark rounded" id="dashboard_controls" style="display: block; padding-top: 10px; background-color: cyan; position: relative;">
+<form action="/chopper" method="POST">
+    <fieldset id="fields">
+        <label for="alpha">
+            <b>Duty Cycle &alpha; = </b>
+        </label>
+        <input type="range" name="alpha" id="alpha" value="{% if c.alpha %}{{c.alpha}}{% else %}7{% endif %}" min="7" step="1" max="100"
+            oninput="this.nextElementSibling.value = this.value; document.getElementById('dispalpha').value = this.value;" onchange="form.submit();" style="width: 280px;">
+        <output>{% if c.alpha %}{{c.alpha}}{% else %}1{% endif %}</output>&nbsp;% <br>
+    </fieldset>
+    <div style="padding-top: 5px;  position: absolute; top: 62%; left: 1%;">
+        <p id="baltext" style="font-family: Arial, Helvetica, serif; color:blue; font-weight: bold; font-size: 15pt;">
+            &nbsp;{% if c.N %}{% else %}Vary duty cycle (&alpha;) for increasing rotor speed{% endif %}
+        </p>
+    </div>
+    <div class="container borderless text-lg-right" style="padding-right: 0px;">
+        <fieldset id="calcbuttons">
+            <button type="submit" id="append" class="btn  btn-outline-dark" onsubmit="event.preventDefault();" onclick="" name="CRD" value="Append">Append Table</button>
+            <button type="submit" class="btn btn-outline-dark" onsubmit="event.preventDefault()" name="CRD" value="Reset">Reset</button><br><br>
+        </fieldset>
+    </div>
+</form>
+<form name="records" action="/">
+
+</form>
+</div>
+{% endblock dashboard %}
+
+{% block graph_table %}
+<img id="waveform" src="{{url_for('static', filename='chopper.png')}}" alt="chopper" height="450px" width="100%">
+<table class="table table-hover table-sm text-center table-bordered my-lg-5" style="border-color: black;">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center" style="border-color: black;">&alpha; (percentage)</th>
+            <th scope="col" class="text-center" style="border-color: black;">Rotor Speed (rpm)</th>
+            <th scope="col" class="text-center" style="border-color: black;">Deletion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in allrec %}
+        <tr>
+            <td style="border-color: black;">{{rec.alpha}}</td>
+            <td style="border-color: black;">
+                <p style="color: blue;">{{rec.N}}</p>
+            </td>
+            <td style="border-color: black;">
+                <form action="/chopper" method="POST" autocomplete="off">
+                    <button type="submit" class="btn btn-outline-dark" name="CRD"
+                        value="Delete">Delete</button>
+                    <input type="hidden" name="reference" value="{{loop.index}}">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock graph_table %}
+
+{% block obsbtnlabel %}
+    Observations
+{% endblock obsbtnlabel %}
+
+{% block sidenavbar %}
+<div class="container my-4" id="observations2">
+<h5 style="color: brown;">Armature Current = I<sub>a</sub> = 300 amp<br>Torque = T<sub>e</sub> = {{c.Te}} N-m</h5>
+<br>
+<table class="table table-bordered black table-hover text-center" style="border-color: black;">
+    <thead>
+        <tr>
+          <th scope="col" class="text-center" style="border-color: black;">&alpha; (percentage)</th>
+          <th scope="col" class="text-center" style="border-color: black;">Rotor Speed (rpm)</th>
+          <th scope="col" class="text-center" style="border-color: black;">Terminal voltage (V<sub>t</sub>)</th>
+          <th scope="col" class="text-center" style="border-color: black;">Back EMF (E<sub>b</sub>)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in allrec %}
+        <tr>
+            <td scope="col" style="border-color: black; color: blue;">{{rec.alpha}}</td>
+            <td scope="col" style="border-color: black; color: blue">{{rec.N}}</td>
+            <td scope="col" style="border-color: black; color: blue">{{rec.Vt}}</td>
+            <td scope="col" style="border-color: black; color: blue">{{rec.Eb}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+</div>
+{% endblock sidenavbar %}
+
+
+{% block scriptofprac %}
+<!--    
+-->
+<script>
+    window.onload = function() {
+          var scrollpos = localStorage.getItem('scrollpos');
+          if (scrollpos) window.scrollTo(200, scrollpos);
+          if ( parseInt(document.getElementById('session').value) == 1 ) changepic();
+          if ( parseInt(document.getElementById('rotorspeed').value) == 0 ) {
+            document.getElementById('rotor').innerHTML = `<img src="{{url_for('static', filename='rotor - Copy.png')}}" height="100px" width="100px">`;
+          }  
+        };
+    window.onbeforeunload = function() {
+          localStorage.setItem('scrollpos', window.scrollY);
+        }; 
+    function withinlimit() {
+        if(document.getElementById('R3').value<900) { document.getElementById('R3').value=900; }
+        else if(document.getElementById('R3').value>5000) { document.getElementById('R3').value=5000; }
+    }
+    function changepic() {
+        if(document.getElementById('switch').name == `off`) {
+            document.getElementById('rotor').style.display = 'block';
+            if( parseInt(document.getElementById('rotorspeed').value) ) {
+                document.getElementById('rotor').innerHTML = `<img src="{{url_for('static', filename='rotor - Copy.png')}}" class="rotate" height="100px" width="100px">`;
+            }
+            document.getElementById('switch').src = `{{url_for('static', filename='on.png')}}`;
+            document.getElementById('waveform').style.display = 'block';
+            document.getElementById('switch').name = `on`;
+            document.getElementById('showvalues').style.display = 'block';
+            document.getElementById('dashboard_controls').style.display = "block";
+            document.getElementById('baltext').style.display = "block";
+        }
+        else {
+            document.getElementById('switch').src = `{{url_for('static', filename='off.png')}}`;
+            document.getElementById('rotor').innerHTML = `<img src="{{url_for('static', filename='rotor - Copy.png')}}" height="100px" width="100px">`;
+            document.getElementById('waveform').style.display = 'none';
+            document.getElementById('switch').name = `off`;
+            document.getElementById('showvalues').style.display = 'none';
+            document.getElementById('dashboard_controls').style.display = "none";
+            document.getElementById('baltext').style.display = "none";
+        }
+    }
+</script>
+{% endblock scriptofprac %}

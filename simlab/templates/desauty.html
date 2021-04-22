@@ -1,0 +1,322 @@
+{% extends 'layoutprac.html' %}
+
+{% block headofprac %}
+{% endblock headofprac %}
+
+{% block Title %}
+<div class="container text-center"><h1>Modified De Sauty's Bridge</h1></div><br>
+{% endblock Title %}
+
+{% block labmanual %}
+<!--Scrollspy lab manual content set offset properly-->
+<div class="container border rounded my-2" data-spy="scroll" data-target="#Contentitems" data-offset="330" class="scrollspy-example" 
+style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height:400px ; width: 1200px; overflow-y: scroll">
+            <div class="container" style="padding-top:60px;" id="aim">
+                <h2>Aim</h2>
+                <p>
+                    To determine the value of an unknown capacitance and its dissipation factor using De Sauty's Bridge Apparatus. 
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="theory">
+                <h2>Theory</h2>
+                <p>
+                    <p>AC bridges are the circuits that are used for the measurement of electrical quantities such as inductance, capacitance, resistance. 
+                        Along with these an ac bridge allows us to measure storage factor, loss factor, dissipation factor etc. 
+                        AC bridges operate with only AC signal. They are also used to provide phase shifting and a feedback path to oscillator circuits.
+                    </p>
+                    <p>Bridge circuits are extensively used for measuring values of electrical components such as R, C and L. The construction of the bridges 
+                        is very simple. The bridge has four arms, one AC supply source and the balance detector. 
+                        It works on the principle that the balance ratio of the impedances will give the balance condition to the circuit which 
+                        is determined by the null detector. If the voltage difference between the two nodes of the detector is zero, then the 
+                        bridge is said to be in a balanced condition. No current flows through the detector in such a state.
+                    </p>
+                    <p>De Sauty's bridge is an ac bridge which is used to compare two capacitances directly. This bridge 
+                        provides us the most suitable method for comparing the values two capacitors if we neglect dielectric losses 
+                        in the bridge circuit. The ratio of the values of the capacitances used will be equal to the ratio of resistances 
+                        connected in the other two arms of the bridge (similar to a wheatstone bridge, only the ratio is inverse of the one expected).
+                        there are some disadvantages of this bridge because this bridge give inaccurate results for imperfect capacitor 
+                        (here imperfect means capacitors which not free from dielectric losses). Hence we can use this bridge only for comparing perfect capacitors.
+                    </p>
+                    <center><img src="{{url_for('static', filename='desautytheorycirc.png')}}" alt="modified desauty"></center>
+                    <p>In this experiment we will work with modified version of the De Sauty’s bridge, we want to have a bridge that 
+                        will gives us accurate results for imperfect capacitors as well. This modification was proposed by Grover (F.W. Grover in 1907).
+                    </p>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="formula">
+                <h2>Formula</h2>
+                <p>
+                    <img width="100%" src="{{url_for('static', filename='des1_theory.png')}}" alt="formula1">
+                    <img width="100%" src="{{url_for('static', filename='des2_theory.png')}}" alt="formula2">
+                    <img width="100%" src="{{url_for('static', filename='des3_theory.png')}}" alt="formula3">
+                    <img width="100%" src="{{url_for('static', filename='des4_theory.png')}}" alt="formula4">
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="procedure">
+                <h2>Procedure</h2>
+                <p>
+                    <p>1) Select the set of values for capacitance Cx and resistance rx from the dropdown menu in blue dashboard. Choose Set-1.</p>
+                    <p>2) Now, Cx and Rx are set to some unknown pair of constants. Now, vary the values of R2 and R3 using the corresponding inputs
+                        until the bridge is balanced.
+                    </p>
+                    <p>3) For obtaining the balance, one needs to vary values of R2 and R3 in such a way that the detector
+                        voltage becomes less than 5 miilivolt. As soon as, detector voltage goes below 5 millivolt, a balance
+                        is obtained.
+                    </p>
+                    <p>4) In the balanced bridge condition, the 'Calculate values for Cx and rx' button will become active. Click on it to find the
+                        values of Cx and rx (system calculated, not actual values) obtained by using the parameters of the balanced bridge. 
+                        You can hide it using the Hide button beside it.
+                    </p>
+                    <p>5) Click on 'Calculate Dissipation Factor of capacitor Cx' to calculate the dissipation factor of unknown capacitance Cx. Note, 
+                        that this is not an observation table. The present readings will not be stored here after you change anything in the bridge.
+                    </p>
+                    <p>6) Now, select Set-2 as the new set of values for pair Cx, rx and redo steps 1 to 5. Note that readings of previous Cx and rx values
+                        (from previously selected sets of values for the pair Cx, rx) will not be stored anywhere. The whole page including the sidebar 
+                        resets to default state (with no record of previous readings) when a different set is selected.
+                    </p>
+                    <p>7) Keep verifying the results obtained by solving the bridge by hand yourself after each cycle (steps 1 to 5).</p>
+                    <p>8) The three sets of values used are: 
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;Set-1: Cx = 0.10 micro-Farad, rx = 70 ohm
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;Set-2: Cx = 0.22 micro-Farad, rx = 24 ohm
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;Set-3: Cx = 0.47 micro-Farad, rx = 5 ohm.
+                    <p>9) Compare these values with the calculated values of Cx and rx obtained during the experiment. If the
+                        actual values match the readings obtained (or the difference lies within error tolerance limits) 
+                        then the the results are verified.
+                    </p>
+                    <p>
+                        <br><h4>Sources:</h4>
+                    </p>
+                    <p>
+                        <a href="https://www.electrical4u.com/de-sautys-bridge/">Electrical4u</a><br>
+                        <a href="http://vlabs.iitkgp.ernet.in/asnm/exp17/index.html">IIT Kharagpur Virtual Lab</a><br>
+                        <a href="https://electronicscoach.com/ac-bridges.html">Electronics Coach</a><br>
+                        <a href="https://www.electricalengineeringinfo.com/2017/04/what-ac-bridges-general-equation-form-ac-bridges.html">Electricalengineeringinfo</a><br>
+                        <a href="https://manualzz.com/doc/12884226/ab12-de-sauty%E2%80%99s-bridge--analog-lab">Manualzz - AB12 DE SAUTY’S BRIDGE (Lab Manual by ScienTech Technologies Pvt. Ltd.)</a><br>
+                        A Course In Electrical And Electronic Measurements And Instrumentation - A.K. Sawhney, Puneet Sawhney<br>
+                        
+                    </p>
+                </p>
+            </div>
+</div>
+{% endblock labmanual %}
+
+
+{% block dashboard %}
+<!--Create some faltu material-->
+<div id="circuitdiag" class="container" style="position: relative; padding-top: 20px;">
+    <!--dashboard live circuit pic-->
+    <img src="{{url_for('static', filename='desautycirc.jpg')}}" height="530px" width="1043px">
+    <div style="position: absolute; top:48%; right: 56%;">
+        <button type="button" onclick="event.preventDefault(); changepic();">
+            <img id="switch" name="on" src="{{url_for('static', filename='on.png')}}" height="30px" width="48px">
+        </button>
+    </div>
+    <div id="showvalues" style="position: absolute; top: 51%; right: 10%; display: block;">
+        <p id="detector" style="font-family: Arial, Helvetica, sans-serif; font-size: 14pt;">
+           Vd = <input type="number" value="{% if des.R2 %}{{bridge.detector_mag_mV}}{% else %}{% endif %}" style="width: 100px" readonly> mV
+        </p>
+    </div>
+    <div style="position: absolute; top: 65%; right: 83%;">
+        <p style="font-family: Arial, Helvetica, sans-serif;">R2 = <input id="dispR2" type="number" style="width: 53px" value="{% if des.R2 %}{{des.R2}}{% else %}{% endif %}" readonly> ohm</p>
+    </div>
+    <div style="position: absolute; top: 28%; right: 40%;">
+        <p style="font-family: Arial, Helvetica, sans-serif;">R3 = <input id="dispR3" type="number" style="width: 90px" value="{% if des.R3 %}{{des.R3}}{% else %}{% endif %}" readonly> ohm</p>
+    </div>
+    <div id="onbalalert" class="alert alert-success" role="alert" style="display: none; position: absolute; top:7%; right: 4%; color: blue;">
+        <h4 class="alert-heading">Calculated Values: </h4>
+        <hr>
+        <p class="mb-0" style="font-family: Arial, Helvetica, sans-serif; font-weight: 2px; font-size: 16pt;">
+            {% if des.C1_calc %}C<sub>x</sub> = {{des.C1_calc}} F<br>r<sub>x</sub> = {{des.r1_calc}} ohm{% else %}{% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="container mx-3 my-3 border border-dark rounded" id="dashboard_controls" style="display: block; padding-top: 10px; background-color: cyan; position: relative;">
+<form id="myform" action="/desauty" method="POST">
+    <fieldset id="fields">
+        <p style="font-family: Arial, Helvetica, sans-serif; color:blue; font-weight: bold; font-size: 15pt;">
+            <label for="Resetkar">Choose set of values for C<sub>x</sub>, r<sub>x</sub> : </label>
+            <select id="Resetkar" name="Resetkar" onchange="form.submit()">
+                <option value="0" disabled selected hidden>Set {{des.ind + 1}}</option>
+                <option value="1">Set 1</option>
+                <option value="2">Set 2</option>
+                <option value="3">Set 3</option>
+            </select>
+        </p>
+        <label for="R2">
+            <b>Resistance R<sub>2</sub> = </b>
+        </label>
+        <input type="range" name="R2" id="R2" value="{% if des.R2 %}{{des.R2}}{% else %}8{% endif %}" min="8" max="15" step="0.1"
+            oninput="this.nextElementSibling.value = this.value; document.getElementById('dispR2').value = this.value;" onchange="form.submit();" style="width: 70%;"> 
+        <output>{% if des.R2 %}{{des.R2}}{% else %}8{% endif %}</output>&nbsp;ohm<br><br>
+
+        <label for="R3">
+            <b>Resistance R<sub>3</sub> = </b>
+        </label>
+        <input type="number" name="R3" id="R3" value="{% if des.R3 %}{{des.R3}}{% else %}900{% endif %}" step="1" max="5000"
+            oninput="this.nextElementSibling.value = this.value; document.getElementById('dispR3').value = this.value;" onchange="withinlimit(); form.submit();" style="width: 280px;">
+        <output>{% if des.R3 %}{{des.R3}}{% else %}900{% endif %}</output>&nbsp;ohm <br>
+    </fieldset>
+    <div style="padding-top: 5px;  position: absolute; top: 80%; left: 1%;">
+        <p id="baltext" style="font-family: Arial, Helvetica, sans-serif; color:blue; font-weight: bold; font-size: 15pt;">
+            &nbsp;{% if des.R2 %}The bridge is {{bridge.balanced}}{% else %}Vary R<sub>2</sub> and R<sub>3</sub>{% endif %}
+        </p>
+    </div>
+        
+    <div class="container borderless text-lg-right" style="padding-right: 0px; padding-bottom: 10px;">
+        <fieldset id="calcbuttons" {{des.hide}}>
+            <button id="showC1" class="btn text-lg-right btn-outline-dark" onclick="event.preventDefault(); see();">Calculate values for Cx, rx</button>&nbsp;&nbsp;
+            <button id="hideC1" class="btn text-lg-right btn-outline-dark  mx-2" onclick="event.preventDefault(); hide();" disabled>Hide</button>
+        </fieldset>
+    </div>
+  
+</form>
+</div>
+{% endblock dashboard %}
+
+{% block graph_table %}
+{% endblock graph_table %}
+
+{% block obsbtnlabel %}
+    Calculate Dissipation Factor of capacitor C<sub>x</sub>
+{% endblock obsbtnlabel %}
+
+{% block sidenavbar %}
+<div class="container my-4" id="observations2">
+<table class="table table-bordered black table-hover text-center" style="border-color: black;">
+    <thead>
+        <tr>
+          <th colspan="2" scope="col" style="border-color: black;">Calculated Values</th>
+          <th width="29%" rowspan="2" scope="col" style="border-color: black;">tan(&delta;2)&nbsp;= Dissipation factor of C2</th>
+          <th width="27%" rowspan="2" scope="col" style="border-color: black;">tan(&delta;x)&nbsp;= Dissipation factor of Cx</th>
+        </tr>
+        <tr>
+          <th scope="col" style="border-color: black;">Cx (Farad)</th>
+          <th scope="col" style="border-color: black;">rx (ohm)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if des.C1_calc %}
+        <tr>
+            <td scope="col" style="border-color: black; color: blue;">{{des.C1_calc}}</td>
+            <td scope="col" style="border-color: black; color: blue">{{des.r1_calc}}</td>
+            <td scope="col" style="border-color: black; color: black;">{{des.dissip2}}</td>
+            <td scope="col" style="border-color: black; color: blue">{{des.dissip1}}</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<br>
+<h6 style="color: brown;">Note: The reading will disappear if you change the set of values for C<sub>x</sub> and r<sub>x</sub></h6>
+<br>
+<br>
+</div>
+{% endblock sidenavbar %}
+
+
+{% block scriptofprac %}
+<script>
+    window.onload = function() {
+        document.getElementById('plot').style.display = 'none';
+    }
+    function see() {
+        document.getElementById('fields').disabled = true;
+        document.getElementById('hideC1').disabled = false;
+        document.getElementById('showC1').disabled = true;
+        document.getElementById('onbalalert').style.display = 'block';
+    }
+    function hide() {
+        document.getElementById('fields').disabled = false;
+        document.getElementById('showC1').disabled = false;
+        document.getElementById('hideC1').disabled = true;
+        document.getElementById('onbalalert').style.display = 'none';
+    }
+    function withinlimit() {
+        if(document.getElementById('R3').value<900) { document.getElementById('R3').value=900; }
+        else if(document.getElementById('R3').value>5000) { document.getElementById('R3').value=5000; }
+    }
+    function changepic() {
+        if(document.getElementById('switch').name == `off`) {
+            document.getElementById('switch').src = `{{url_for('static', filename='on.png')}}`;
+            document.getElementById('switch').name = `on`;
+            document.getElementById("showvalues").style.display = "block";
+            document.getElementById('dashboard_controls').style.display = "block";
+            document.getElementById('baltext').style.display = "block";
+        }
+        else {
+            document.getElementById('switch').src = `{{url_for('static', filename='off.png')}}`;
+            document.getElementById('switch').name = `off`;
+            document.getElementById("showvalues").style.display = "none";
+            document.getElementById('dashboard_controls').style.display = "none";
+            document.getElementById('baltext').style.display = "none";
+            document.getElementById('onbalalert').style.display = "none";
+            document.getElementById('hideC1').disabled = true;
+            document.getElementById('showC1').disabled = false;
+        }
+    }
+</script>
+{% endblock scriptofprac %}
+
+<!--functions go here-->
+<!--
+<script>
+    class general_bridge{
+        constructor(z1_Real, z1_Img, z2_Real, z2_Img, z3_Real, z3_Img, z4_Real, z4_Img, V, f) {
+            this.z1_Real=z1_Real;
+            this.z1_Img= z1_Img;
+            this.z2_Real=z2_Real;
+            this.z2_Img= z2_Img;
+            this.z3_Real=z3_Real;
+            this.z3_Img= z3_Img;
+            this.z4_Real=z4_Real;
+            this.z4_Img= z4_Img;
+            this.V=V;
+            this.f=f;
+            this.i1=0;
+            this.i2=0
+        }
+        calculate() {
+            if( Math.abs( (z1_Real*z4_Real - z1_Img*z4_Img) - (z2_Real*z3_Real - z2_Img*z3_Img) ) < 1000 ){
+            }
+        }
+        
+    }
+    
+
+    function detector() {
+        let z1_Real=0;
+        let z2_Real=0;
+        let z3_Real=0;
+        let z4_Real=0;
+        let z1_Img=0;
+        let z2_Img=0;
+        let z3_Img=0;
+        let z4_Img=0;
+        let V=12;
+        const pi=3.14159265358979323846;
+        z1_Real = parseFloat(document.getElementById('r1').value) + parseFloat(document.getElementById('R1').value);
+        z2_Real = parseFloat(document.getElementById('r2').value) + parseFloat(document.getElementById('R2').value);
+        z3_Real = parseFloat(document.getElementById('R3').value);
+        z4_Real = parseFloat(document.getElementById('R4').value);
+        z1_Img = 1/( 2*pi*parseFloat(document.getElementById('C1').value) );
+        z2_Img = 1/( 2*pi*parseFloat(document.getElementById('C2').value) );
+        alert(`z1_Img is` + z1_Img);
+        alert(`z2_Img is` + z2_Img);
+        alert( `Z1 is given as` + ( (z1_Img**2 + z1_Real**2)**0.5 ) );
+        if( Math.abs( z1_Real - (z2_Real*z3_Real/z4_Real) ) < 10 ) {
+            if ( Math.abs( (z1_Img/z2_Img) - (z4_Real/z3_Real) ) < 10 )  {
+                alert("Balanced hai sasur !");
+                alert( (V*z1_Real/(z1_Real+z3_Real)) - (V*z2_Real/(z2_Real+z4_Real)) ) ;
+                alert( (z1_Img/z2_Img) - (z4_Real/z3_Real) );
+            }
+            else {
+                alert( (z1_Img/z2_Img) - (z4_Real/z3_Real) );
+            }
+        }
+        else {
+            alert('Way off target');
+            alert( (V*z1_Real/(z1_Real+z3_Real)) - (V*z2_Real/(z2_Real+z4_Real)) );
+        }
+
+    }
+</script>-->

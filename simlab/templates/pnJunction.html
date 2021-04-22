@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/diodefrw.css')}}">
+<script src="../static/js/createCanvas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<div class="container" style="width: 100vw; height: 80vh;">
+    <div class="row">
+        <div class="col-6">
+                <div class="container"  id='diodeCanvasParent'>
+                    <input type="number" name="R" id="R", min="100" max="2000" value="1000">
+                    <p id="amps">0.6</p>
+                    <input type="number" name="V" id="V" min="0" max="7" value="2.5" step="0.1">
+                    <p id="vd"></p>
+                </div>
+        </div>
+            <div class="col" style="width: 200px; transform: translateX(25%);">
+                <ul class="list-group list-group-horizontal" style="transform: translateX(-5%);">
+                    <li class="list-group-item"> <button class="btn btn-primary" id="add">Add to Table</button> </li>
+                    <li class="list-group-item"> <button class="btn btn-primary" id="clearAll">Clear</button> </li>
+                    <li class="list-group-item"> <button class="btn btn-primary" id="plot">Plot</button> </li>
+                </ul>
+                   
+                    <div class="container my-5">
+                        <div class="scrollable" style="width: max-content;">
+                            <table class="table table-hover table-bordered" id='VI_table'>
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col"> Voltage (V)</th>
+                                        <th scope="col">Current (mA) </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+        <canvas id="graph" style="background-color:azure"></canvas>
+</div>
+
+<script src="{{ url_for('static', filename='js/meter.js')}}"></script>
+<script src="{{ url_for('static', filename='js/diodefrw.js')}}"></script>
+
+
+{% endblock %}
+
+
+
+

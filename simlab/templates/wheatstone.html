@@ -1,0 +1,257 @@
+{% extends 'layoutprac.html' %}
+
+{% block headofprac %}
+{% endblock headofprac %}
+
+{% block Title %}
+<div class="container text-center"><h1>Wheatstone Bridge</h1></div><br>
+{% endblock Title %}
+
+{% block labmanual %}
+<!--Scrollspy lab manual content set offset properly-->
+<div class="container border rounded my-2" data-spy="scroll" data-target="#Contentitems" data-offset="320" class="scrollspy-example" 
+style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height:400px ; width: 1200px; overflow-y: scroll">
+            <div class="container" style="padding-top:60px;" id="aim">
+                <h2>Aim</h2>
+                <p>To study the operation of Wheatstone bridge and measuring the value
+                    of unknown resistance.</p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="theory">
+                <h2>Theory</h2>
+                <p>
+                    <p>AC bridges are the circuits that are used for the measurement of electrical quantities such as inductance, capacitance, resistance. 
+                        Along with these an ac bridge allows us to measure storage factor, loss factor, dissipation factor etc. 
+                        AC bridges operate with only AC signal. They are also used to provide phase shifting and a feedback path to oscillator circuits.
+                    </p>
+                    <p>Bridge circuits are extensively used for measuring values of electrical components such as R, C and L. The construction of the bridges 
+                        is very simple. The bridge has four arms, one AC supply source and the balance detector. 
+                        It works on the principle that the balance ratio of the impedances will give the balance condition to the circuit which 
+                        is determined by the null detector. If the voltage difference between the two nodes of the detector is zero, then the 
+                        bridge is said to be in a balanced condition. No current flows through the detector in such a state.
+                    </p>
+                    <p>Wheatstone bridge is an AC Bridge with only purely resistive components and is used in the measurement of
+                        medium resistances. Wheatstone bridge has been in use longer than almost any electrical measuring instrument. 
+                        It is still an accurate and reliable instrument and is extensively used in industry.</p>
+                    <p>The Wheatstone bridge is an instrument for making comparison instruments and
+                        operates upon a null indication principle. This means the indication is
+                        independent of the calibration of the null indicating instrument or any of its
+                        characteristics. For this reason, very high degrees of accuracy can be
+                        achieved using Wheatstone bridge. Accuracy of 0.1% is quite common with
+                        a Wheatstone bridge as opposed to accuracies of 3% to 5% with ordinary
+                        ohmmeter for measurement of medium resistances.</p>
+                    <center>
+                        <img src="{{url_for('static', filename='w3_theory.png')}}">
+                    </center>
+                    <p>The Wheatstone bridge is also well-suited for the measurement of small changes of 
+                        a resistance and, therefore, is also suitable to measure the resistance change in a strain gauge.
+                        It is commonly known that the strain gauge transforms strain applied to it
+                        into a proportional change of resistance.</p> 
+                    <p>The basic circuit of a Wheatstone bridge consists of four resistive arms, consisting of resistances R1, R2, R3 and R4 together with a 
+                        source of emf (a battery) and a null detector (a sensitive voltmeter in our case). With one resistance (R1 = Rx) unknown, and with two variable
+                        arms (R2 and R3), we can find out the value of unknown resistance (Rx). Due to the bridge balancing equation derived below
+                        which involves four quantities, we can always find the unknown when the other three quantities are known.
+                    </p>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="formula">
+                <h2>Formula</h2>
+                <p>
+                <center>
+                    <img width="100%" src="{{url_for('static', filename='w1_theory.png')}}">
+                    <img width="100%" src="{{url_for('static', filename='w2_theory.png')}}">
+                </center>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="procedure">
+                <h2>Procedure</h2>
+                <p>
+                    <p>1) Select the value set for resistance from the dropdown menu in blue dashboard. Choose Set-1.</p>
+                    <p>2) Now, Rx is set to some unknown constant. Now, vary the values of R2 and R3 using the corresponding slider inputs
+                        until the bridge is balanced.
+                    </p>
+                    <p>3) For obtaining the balance, one needs to vary values of R2 and R3 in such a way that the detector
+                        voltage becomes less than 5 miilivolt. As soon as, detector voltage goes below 5 millivolt, a balance
+                        is obtained.
+                    </p>
+                    <p>4) In the balanced bridge condition, the calculate Rx button will become active. Click on it to find the
+                        value of Rx (system calculated, not actual value of Rx) obtained by using the parameters of the balanced bridge. 
+                        You can hide it using the Hide button beside it.
+                    </p>
+                    <p>5) Click on See Calculated Rx to see the calculated value of the unknown parameter Rx in the sidebar. Note, 
+                        that this is not an observation table. The present readings will not be stored here after you change anything in the bridge.
+                    </p>
+                    <p>6) Now, select Set-2 as the new value for Rx and redo steps 1 to 5. Note that readings of previous Rx values
+                        (from previously selected sets of Rx) will not be stored anywhere. The whole page including the sidebar 
+                        resets to default state (with no record of previous readings) when a different set for Rx value is selected.
+                    </p>
+                    <p>7) Keep verifying the results obtained by solving the bridge yourself after each cycle (steps 1 to 5).</p>
+                    <p>8) The three sets of values used are: 
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rx --> [Set-1: 60 ohm;   Set-2: 370 ohm;   Set-3: 730 ohm].
+                    </p>
+                    <p>9) Compare these values with the calculated values of Rx obtained during the experiment. If the
+                        actual values match the readings obtained (or the difference lies within error tolerance limits) 
+                        then the the results are verified.
+                    </p>
+                    <p>
+                        <br><h4>Sources:</h4>
+                    </p>
+                    <p>
+                        <a href="https://www.electrical4u.com/wheatstone-bridge-circuit-theory-and-principle/">Electrical4u</a><br>
+                        <a href="https://www.pantechsolutions.net/blog/lab-experiment-for-wheatstone-bridge-trainer-module/">Pantech Solutions</a><br>
+                        <a href="https://manualzz.com/download/11959855">Manualzz - AB10 WHEATSTONE BRIDGE (Lab manual by Scientech Technologies Pvt. Ltd.)</a><br>
+                        <a href="https://www.electricalengineeringinfo.com/2017/04/what-ac-bridges-general-equation-form-ac-bridges.html">Electricalengineeringinfo</a><br>
+                        <a href="https://www.engineersedge.com/instrumentation/wheat_stone_bridge.htm">Engineersedge</a><br>
+                        A Course In Electrical And Electronic Measurements And Instrumentation - A.K. Sawhney, Puneet Sawhney<br>
+                    </p>
+                </p>
+            </div>
+</div>
+{% endblock labmanual %}
+
+
+{% block dashboard %}
+<!--Create some faltu material-->
+<div id="circuitdiag" class="container" style="position: relative; padding-top: 20px;">
+    <!--dashboard live circuit pic-->
+    <img src="{{url_for('static', filename='wheatstone.jpg')}}" height="530px" width="1043px">
+    <div style="position: absolute; top:48%; right: 56%;">
+        <button type="button" onclick="event.preventDefault(); changepic();">
+            <img id="switch" name="on" src="{{url_for('static', filename='on.png')}}" height="30px" width="48px">
+        </button>
+    </div>
+    <div id="showvalues" style="position: absolute; top: 51%; right: 10%; display: block;">
+        <p id="detector" style="font-family: Arial, Helvetica, sans-serif; font-size: 14pt;">
+           Vd = <input type="number" value="{% if w.R2 %}{{bridge.detector_mag_mV}}{% else %}{% endif %}" style="width: 100px" readonly> mV
+        </p>
+    </div>
+    <div style="position: absolute; top: 71%; right: 80%;">
+        <p style="font-family: Arial, Helvetica, sans-serif;">R2 = <input id="dispR2" type="number" style="width: 65px" value="{% if w.R2 %}{{w.R2}}{% else %}{% endif %}" readonly> ohm</p>
+    </div>
+    <div style="position: absolute; top: 28%; right: 40%;">
+        <p style="font-family: Arial, Helvetica, sans-serif;">R3 = <input id="dispR3" type="number" style="width: 90px" value="{% if w.R3 %}{{w.R3}}{% else %}{% endif %}" readonly> ohm</p>
+    </div>
+    <div id="onbalalert" class="alert alert-success" role="alert" style="display: none; position: absolute; top:7%; right: 4%; color: blue;">
+        <h4 class="alert-heading">Calculated Value: </h4>
+        <hr>
+        <p class="mb-0" style="font-family: Arial, Helvetica, sans-serif; font-weight: 2px; font-size: 16pt;">
+            {% if w.R1_calc %}R<sub>x</sub> = {{w.R1_calc}} ohm{% else %}{% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="container mx-3 my-3 border border-dark rounded" id="dashboard_controls" style="display: block; padding-top: 10px; background-color: cyan; position: relative;">
+<form id="myform" action="/wheatstone" method="POST">
+    <fieldset id="fields">
+        <p style="font-family: Arial, Helvetica, sans-serif; color:blue; font-weight: bold; font-size: 15pt;">
+            <label for="Resetkar">Select value set for R<sub>x</sub> : </label>
+            <select id="Resetkar" name="Resetkar" onchange="form.submit()">
+                <option value="0" disabled selected hidden>Set {{w.ind + 1}}</option>
+                <option value="1">Set 1</option>
+                <option value="2">Set 2</option>
+                <option value="3">Set 3</option>
+            </select>
+        </p>
+        <label for="R2">
+            <b>Resistance R<sub>2</sub> = </b>
+        </label>
+        <input type="range" name="R2" id="R2" value="{% if w.R2 %}{{w.R2}}{% else %}0.5{% endif %}" min="0.5" max="200" step="0.5"
+            oninput="this.nextElementSibling.value = this.value; document.getElementById('dispR2').value = this.value;" onchange="form.submit();" style="width: 70%;"> 
+        <output>{% if w.R2 %}{{w.R2}}{% else %}0.5{% endif %}</output>&nbsp;ohm<br><br>
+        <label for="R3">
+            <b>Resistance R<sub>3</sub> = </b>
+        </label>
+        <input type="range" name="R3" id="R3" value="{% if w.R3 %}{{w.R3}}{% else %}1000{% endif %}" min="1000" step="1000" max="10000"
+            oninput="this.nextElementSibling.value = this.value; document.getElementById('dispR3').value = this.value;" onchange="form.submit();" style="width: 70%;">
+        <output>{% if w.R3 %}{{w.R3}}{% else %}1000{% endif %}</output>&nbsp;ohm <br>
+    </fieldset>
+    <div style="padding-top: 5px;  position: absolute; top: 80%; left: 1%;">
+        <p id="baltext" style="font-family: Arial, Helvetica, sans-serif; color:blue; font-weight: bold; font-size: 15pt;">
+            &nbsp;{% if w.R2 %}The bridge is {{bridge.balanced}}{% else %}Vary R<sub>2</sub> and R<sub>3</sub>{% endif %}
+        </p>
+    </div>
+    <div class="container borderless text-lg-right" style="padding-right: 0px; padding-bottom: 10px;">
+        <fieldset id="calcbuttons" {{w.hide}}>
+            <button id="showR1" class="btn text-lg-right btn-outline-dark" onclick="event.preventDefault(); see();">Calculate value for Rx</button>&nbsp;&nbsp;
+            <button id="hideR1" class="btn text-lg-right btn-outline-dark  mx-2" onclick="event.preventDefault(); hide();" disabled>Hide</button>
+        </fieldset>
+    </div>
+  
+</form>
+</div>
+{% endblock dashboard %}
+
+{% block graph_table %}
+{% endblock graph_table %}
+
+{% block obsbtnlabel %}
+    See Calculated R<sub>x</sub>
+{% endblock obsbtnlabel %}
+
+{% block sidenavbar %}
+<div class="container my-4" id="observations2">
+<table class="table table-bordered black table-hover text-center" style="border-color: black;">
+    <thead>
+        <tr>
+          <th scope="col" style="border-color: black;">R<sub>x</sub> (ohm)</th>
+          <th scope="col" style="border-color: black;">R<sub>2</sub> (ohm)</th>
+          <th scope="col" style="border-color: black;">R<sub>3</sub> (ohm)</th>
+          <th scope="col" style="border-color: black;">R<sub>4</sub> (ohm)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if w.R1_calc %}
+        <tr>
+            <td scope="col" style="border-color: black; color: blue;">{{w.R1_calc}}</td>
+            <td scope="col" style="border-color: black; color: black">{{w.R2}}</td>
+            <td scope="col" style="border-color: black; color: black;">{{w.R3}}</td>
+            <td scope="col" style="border-color: black; color: black">1000.0</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<br>
+<h6 style="color: brown;">Note: The reading will disappear if you change the value set for R<sub>x</sub></h6>
+<br>
+<br>
+</div>
+{% endblock sidenavbar %}
+
+
+{% block scriptofprac %}
+<script>
+    window.onload = function() {
+        document.getElementById('plot').style.display = 'none';
+    }
+    function see() {
+        document.getElementById('fields').disabled = true;
+        document.getElementById('hideR1').disabled = false;
+        document.getElementById('showR1').disabled = true;
+        document.getElementById('onbalalert').style.display = 'block';
+    }
+    function hide() {
+        document.getElementById('fields').disabled = false;
+        document.getElementById('showR1').disabled = false;
+        document.getElementById('hideR1').disabled = true;
+        document.getElementById('onbalalert').style.display = 'none';
+    }
+    function changepic() {
+        if(document.getElementById('switch').name == `off`) {
+            document.getElementById('switch').src = `{{url_for('static', filename='on.png')}}`;
+            document.getElementById('switch').name = `on`;
+            document.getElementById("showvalues").style.display = "block";
+            document.getElementById('dashboard_controls').style.display = "block";
+            document.getElementById('baltext').style.display = "block";
+        }
+        else {
+            document.getElementById('switch').src = `{{url_for('static', filename='off.png')}}`;
+            document.getElementById('switch').name = `off`;
+            document.getElementById("showvalues").style.display = "none";
+            document.getElementById('dashboard_controls').style.display = "none";
+            document.getElementById('baltext').style.display = "none";
+            document.getElementById('onbalalert').style.display = "none";
+            document.getElementById('hideR1').disabled = true;
+            document.getElementById('showR1').disabled = false;
+        }
+    }
+</script>
+{% endblock scriptofprac %}

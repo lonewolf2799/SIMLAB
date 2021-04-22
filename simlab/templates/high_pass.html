@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container" style="width: 100vw; height: 80vh;">
+    <div class="row">
+        <div class="col-6">
+                <div class="container">
+                    <h2>High pass filter with R= {{R}} ohms,C={{C}} microfarads</h2>
+                    <form method=get action="/icApp/icApp02">
+                      <input name="num_r_points" type=number value="{{R}}" />
+                      <input name="num_c_points" type=number value="{{C}}" />
+                      <input type=submit value="update graph">
+                    </form>
+                
+                    <img src="/matplot-as-imagehigh-{{R}},{{C}}.svg"
+                         alt="random points as svg"
+                         height="600"
+                    >
+                </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
