@@ -1,46 +1,66 @@
-const canvas= document.getElementById('landing')
-const canvasWidth=800;
-const canvasHeight=500;
+let container = document.getElementById('main');
 
-const context= canvas.getContext('2d');
-context.font='24px Georgia'
+let text = new Blotter.Text("SIMLAB", {
+  family: 'Montserrat',
+  size: 100,
+  fill: "#fff",
+  paddingLeft: 80,
+  paddingRight: 80,
+  paddingTop: 80,
+  paddingBottom: 80,
+})
 
-class Num{
-    constructor(){
-        this.num= Math.floor(Math.random() * 255);
-        this.x= canvasWidth/2;
-        this.y= canvasHeight/2;
-        this.xdec= -4+Math.random()*9;
-        this.ydec= -4+Math.random()*9;
-    }
+var material = new Blotter.ChannelSplitMaterial();
+material.uniforms.uOffset.value = 0.05;
+material.uniforms.uRotation.value = 50;
+material.uniforms.uApplyBlur.value = 1; // 0 false, 1 true
+material.uniforms.uAnimateNoise.value = .3;
 
-    update(){
-        this.x += this.xdec;
-        this.y+= this.ydec;
-    }
 
-    draw(){
-        context.fillStyle= 'white';
-        context.fillText(this.num, this.x, this.y, 80);
-    }
+var blotter = new Blotter(material, {
+  texts: text
+})
+
+var scope = blotter.forText(text);
+
+scope.appendTo(container);
+scope.context.canvas.style.position = 'absolute'
+scope.context.canvas.style.left = '50%';
+scope.context.canvas.style.top = '50%';
+scope.context.canvas.style.transform = 'translate(-50%, -50%)'
+let yOff = scope.context.canvas.offsetHeight;
+
+document.onmousemove = moveIt;
+function moveIt(event) {
+  material.uniforms.uRotation.value = (event.clientX * .01);
+  material.uniforms.uOffset.value = (event.clientX * .0001);
+
 }
-let numarray = [];
 
-for(let i=0; i< 4;++i) numarray.push(new Num());
 
-function animate(){
-    console.log(numarray.toLocaleString());
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
-    for(let i=0; i< 4;++i){
-        numarray[i].update();
-        numarray[i].draw();
-        if(numarray[i].x < 0 || numarray[i].y <0 || numarray[i].x > canvasWidth || numarray[i].y > canvasHeight){
-            numarray[i]= new Num();
-        }
-    }
-    requestAnimationFrame(animate);
+
+var tl = new TimelineMax({paused:true});
+var dur = 20;
+
+$(document).ready( function(){
+  
+  tl.to( scope.context.canvas , dur , {rotation: 360} )
+  
+
+});
+
+$(window).scroll( function(){
+  var scrollTop = $(window).scrollTop();
+  var docHeight = $(document).height();
+  var winHeight = $(window).height();
+  if( scrollTop >= 0){
+      tl.progress( scrollTop / ( docHeight - winHeight ) );
+  }
 }
-animate();
+);
+
+
+
 
 
 

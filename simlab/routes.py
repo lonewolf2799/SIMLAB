@@ -1,20 +1,26 @@
-from flask import render_template, redirect, url_for, flash, abort
+from flask import render_template, redirect, url_for, flash, abort, Response, request
 
 from simlab import app
+
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 from simlab.filters import low_pass_filter,high_pass_filter
 from simlab.torque_slip import torque_vs_slip
 
 import io
-from flask import Response, request
 from matplotlib.backends.backend_svg import FigureCanvasSVG
 import cmath
 
 import matplotlib
 from matplotlib.figure import Figure
 import numpy as np
+import os
 
 matplotlib.use('Agg')
+
+
 import matplotlib.pyplot as plt
+
+
 
 experiments={
     'aE':{
@@ -63,28 +69,34 @@ class Ohm:
         self.setvalue=0
         self.record={}
         self.circ=0
-    def plot_graph(self):
-        a=[]
-        b=[]
-        reco={}
-        for reco in self.allrecord:
-            b.append(reco['voltage'])
-            a.append(reco['current'])
-        figure = plt.figure(figsize = (10,5))
-        plt.xlabel("Current in ampere")
-        plt.ylabel("Voltage (volt)")
-        plt.plot(a,b,linestyle='--', marker='o', color='b')
-        plt.grid()
+
 
     def empty_graph(self):
         self.circ=0
         self.disabled_set = ""
         self.disabled_append = "disabled"
         self.allrecord = []
-        self.plot_graph()
 
 ohm=Ohm()
 ohm.empty_graph()
+@app.route('/ohm.svg')
+def plotOhm():
+    a=[]
+    b=[]
+    reco={}
+    for reco in ohm.allrecord:
+        b.append(reco['voltage'])
+        a.append(reco['current'])
+
+    figure = plt.figure(figsize = (10,5))
+    plt.xlabel("Current in ampere")
+    plt.ylabel("Voltage (volt)")
+    plt.plot(a,b,linestyle='--', marker='o', color='b')
+    plt.grid()
+    
+    output = io.BytesIO()
+    FigureCanvasSVG(figure).print_svg(output)
+    return Response(output.getvalue(), mimetype="image/svg+xml")
 
 
 #General Bridge
@@ -201,6 +213,7 @@ class Chopper:
         self.Te = int( 4e-3 * 300 * 300 )
         self.allrecord = []
         self.record = {}
+        
     def motor_speed(self):
         n = ( (self.alpha/100)*600 - (300)*(0.14) ) / (4e-3 * 300)
         self.omega = round(n, 2)
@@ -208,37 +221,47 @@ class Chopper:
         self.Eb = int( 4e-3 * self.omega * 300 )
         self.N = int( ( self.omega * 60 )/( 2 * np.pi ) ) 
     
-    def plot_graph(self):
+    def reset_graph(self):
+        self.alpha= 50
+        self.motor_speed()
+        
+
+chop=Chopper()
+chop.reset_graph()
+
+
+
+@app.route('/chopper-<int:alpha>.svg')
+def plot_gating_signal(alpha):
         t=0
         t_array = np.arange(0,8,0.01)
         V=0
         Vt = []
         for t in np.arange(0, 8, 0.01):
-            if (t - int(t)) <= (self.alpha/100):
+            if (t - int(t)) <= (alpha/100):
                 Vt.append(600)
             else:
                 Vt.append(0)
-
-        return t_array,Vt
-
-
-    def reset_graph(self):
-        self.alpha=7
-        self.motor_speed()
-        self.plot_graph()
-c=Chopper()
-c.reset_graph()
-
+        figure = plt.figure(figsize = (10,5))
+        
+        plt.axis([0, 8, 0, 800])
+        plt.xlabel("time (micro-seconds)", fontsize=14)
+        plt.ylabel("Terminal voltage of Motor (Vt)", fontsize=14)
+        plt.plot(t_array,Vt, color='b')
+        plt.text(3.4, 750, 'Chopping Frequency (f) = 1 Mega-Hertz (MHz)', fontsize=12, fontweight='bold', bbox={'facecolor': 'yellow', 'alpha': 0.5, 'pad': 4})
+        plt.text(3.4, 680, 'T = (1/f) = Toff + Ton = 1 micro-second', fontsize=12, fontweight='bold', bbox={'facecolor': 'yellow', 'alpha': 0.5, 'pad': 4})
+        plt.grid()
+        output = io.BytesIO()
+        FigureCanvasSVG(figure).print_svg(output)
+        return Response(output.getvalue(), mimetype="image/svg+xml")
 
 
 
 @app.route('/')
-def landing():
-    return render_template('landing.html')
-
 @app.route('/home')
 def home():
-    return render_template('home.html', title='HOME')
+    return render_template('landing.html')
+
     
     
 # in the same fashion go on adding respective html files and route to run that
@@ -295,8 +318,6 @@ def plot_emes01g(V,f):
 
 
 
-
-
 #-------------------------------------------------------------------------------------------------
 #eMes routes
 @app.route('/eMes')
@@ -321,13 +342,13 @@ def ohmlaw():
                 ohm.record['voltage'] = round(float(request.form['voltage']), 1)
                 ohm.record['current'] = round((ohm.record['voltage']/ohm.setvalue), 1)
                 ohm.allrecord.append(ohm.record)
-                ohm.plot_graph()
+               
                 return redirect('/ohmlaw')
             elif request.form['CRDohm'] == 'Delete':
                 ohm.record = {}
                 index = int(request.form['reference'])
                 ohm.allrecord.pop(index-1)
-                ohm.plot_graph()
+               
                 return redirect('/ohmlaw')
             elif request.form['CRDohm'] == 'Reset':
                 ohm.empty_graph()
@@ -430,32 +451,32 @@ def chopper():
     if request.method == 'POST':
         if request.form.get('CRD'):
             if request.form['CRD'] == 'Append':
-                c.state = 0 #not first time
-                c.record = {}
-                c.record['alpha'] = c.alpha
-                c.record['N'] = c.N
-                c.record['Eb'] = c.Eb
-                c.record['Vt'] = c.Vt
-                c.allrecord.append(c.record)
-                print(c.allrecord)
+                chop.state = 0 #not first time
+                chop.record = {}
+                chop.record['alpha'] = chop.alpha
+                chop.record['N'] = chop.N
+                chop.record['Eb'] = chop.Eb
+                chop.record['Vt'] = chop.Vt
+                chop.allrecord.append(chop.record)
+
                 return redirect('/chopper')
             elif request.form['CRD'] == 'Delete':
-                c.state = 0 #not first time
-                c.record = {}
+                chop.state = 0 #not first time
+                chop.record = {}
                 index = int(request.form['reference'])
-                c.allrecord.pop(index-1)
-                print(c.allrecord)
+                chop.allrecord.pop(index-1)
                 return redirect('/chopper')
+            
             elif request.form['CRD'] == 'Reset':
-                c.state = 0 #not first time
-                c.allrecord = []
-                c.reset_graph()
+                chop.state = 0 #not first time
+                chop.allrecord = []
+                chop.reset_graph()
                 return redirect('/chopper')
         else:
-            c.state = 0 #not first time
-            c.alpha = int(request.form['alpha'])
-            c.motor_speed()
-            c.plot_graph()
+            chop.state = 0 #not first time
+            chop.alpha = int(request.form['alpha'])
+            chop.motor_speed()
+
             return redirect('/chopper')
 
-    return render_template('chopper.html', c=c, rec=c.record, allrec=c.allrecord, title='chopper')
+    return render_template('chopper.html', c=chop, rec=chop.record, allrec=chop.allrecord, title='chopper',alpha=chop.alpha)
