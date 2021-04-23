@@ -1,0 +1,303 @@
+{% extends "layout.html" %}
+
+
+{% block head_content %}
+<!--
+YOU CAN ADD MORE HTML HERE
+
+IT TAKES ELEMENTS FROM THE LAYOUT.HTML FILE AND WITH THOSE STYLING STYLES THIS TOO
+
+.. bUT YOU CAN STYLE AND LINK AS MANY CSS FILE AS YOU CAN
+
+-->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sidebar.css') }}">
+{% endblock head_content %}
+
+
+{% block content %}
+<!---
+    YOU CAN ADD MORE HTML HERE
+
+    IT TAKES ELEMENTS FROM THE LAYOUT.HTML FILE AND WITH THOSE STYLING STYLES THIS TOO
+
+    .. bUT YOU CAN STYLE AND LINK AS MANY CSS FILE AS YOU CAN
+
+    -->
+
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
+    <div class="container text-center"><h1>Verification of Ohm's Law</h1><br></div>
+    <div class="container row">
+        <button class="btn btn-outline-dark btn-lg btn-block" type="button" data-toggle="collapse"
+            data-target="#labmanual" aria-expanded="false" aria-controls="labmanual">
+            Lab Manual
+        </button>
+    </div>
+    <div class="container collapse row border rounded my-0" id="labmanual">
+        <div class="container dropdown mx-2 my-2">
+            <button class="btn btn-outline-dark dropdown-toggle btn-block" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="list-example">
+                Contents
+            </button>
+            <div class="dropdown-menu dropdown-menu-right text-center" id="list-example"
+                aria-labelledby="dropdownMenuButton" style="border:none">
+                <a class="list-group-item list-group-item-secondary list-group-item-action active dropdown-menu-item"
+                    href="#aim" target="_parent">Aim</a>
+                <a class="list-group-item list-group-item-secondary list-group-item-action dropdown-menu-item"
+                    href="#theory" target="_parent">Theory</a>
+                <a class="list-group-item list-group-item-secondary list-group-item-action dropdown-menu-item"
+                    href="#formula" target="_parent">Formula</a>
+                <a class="list-group-item list-group-item-secondary list-group-item-action dropdown-menu-item"
+                    href="#procedure" target="_parent">Procedure</a>
+            </div>
+        </div>
+        <div class="container border rounded my-2" data-spy="scroll" data-target="#list-example" data-offset="350"
+            class="scrollspy-example"
+            style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height:400px ; width: 1200px; overflow-y: scroll">
+            <div class="container" style="padding-top:60px;" id="aim">
+                <h2>Aim</h2>
+                <p>Verification of Ohm’s Law by plotting and observing the nature of Voltage v/s Current curve for a DC resistive circuit.</p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="theory">
+                <h2>Theory</h2>
+                <p>According to the Ohm's law, "The electric current flowing through a conductor is directly proportional to 
+                    the potential difference across its ends provided the physical conditions (temperature, dimensions, pressure) 
+                    of the conductor remains the same." Ohm's law is among the most fundamental relationships in electrical engineering. 
+                    It relates the current, voltage, and resistance for a circuit element so that if we know two of the three quantities we can
+                    determine the third. Thus, if we measure the current flowing in a resistor of known value, we can deduce
+                    the voltage across the resistance according to Ohm's Law formula. Similarly, if we measure the voltage across a
+                    resistor and the current through it, we calculate the resistance of the element. Not only does
+                    this reduce the number of measurements that must be made, it also provides a way to check the results
+                    of several different measurement methods.
+                    <center><img src="{% if circ %}{{url_for('static', filename='ohmlawcirc.png')}}{% else %}{{url_for('static', filename='ohmlawcirc_open.png')}}{% endif %}"></center>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="formula">
+                <h2>Formula</h2>
+                <p>The potential difference (voltage) across an ideal conductor is proportional to the current through it. The
+                    constant of proportionality is called the "resistance", R. Ohm's Law is given by:
+                    <center><h5>V = I R</h5></center>
+                    Where V is the potential difference between two points which include a resistance R. I is the current
+                    flowing through the resistance.
+                    Or
+                    Ohm’s law states that the current through a conductor between two points is directly proportional to the
+                    voltage
+                    across the two points, and inversely proportional to the resistance between them. V, I, and R, the
+                    parameters of Ohm's law.
+                    <center><h5>I = V / R</h5></center>
+                </p>
+            </div>
+            <div class="container" style="padding-top:60px;" id="procedure">
+                <h2>Procedure</h2>
+                <p>
+                    <p>1) The battery eliminator, ammeter, series resistance and key are connected in series as shown.</p>
+                    <p>2) The voltmeter is connected in parallel connection across the given rheostat. The circuit is open right now.</p>
+                    <p>3) Using the slider, adjust the value of series resistance Setting and click on Set resistance once you are done.</p>
+                    <p>4) Now adjust the value of battery voltage. Click on Plug values option once you are done.</p>
+                    <p>5) The ammeter reading I and voltmeter reading V show the values of current and voltage for current configuration.
+                        The key is closed and the reading is automatically plotted as a point in the graph. Voltmeter and ammeter
+                        readings are recorded in the table below the curve.</p>
+                    <p>6) Click on observations to see the reading in the sidebar.</p>
+                    <p>7) The previous steps are repeated for different values of resistance and voltage and the corresponding
+                        ammeter and voltmeter readings are recorded. Calculate the values by hand in each trial to verify
+                        the results. The different points plotted as (V,I) on the curve exhibit a certain feature.
+                        If the slope of this curve happens to be a constant then Ohm's law is verified.</p>
+                    <p>8) For deleting undesirable readings, simply click on the delete button provided alongside every table entry.
+                        See the sidebar to see the readings in the observation table.</p>
+                    <p>9) Click on the reset button to start all over again. It deletes all table entries and plotted points on V v/s I curve.</p>
+                    <p>
+                        <br><h4>Sources:</h4>
+                    </p>
+                    <p>
+                        <a href="https://www.concepts-of-physics.com/electromagnetism/verification-of-ohms-law-using-voltmeter-and-ammeter.php">Concepts-of-Physics</a><br>
+                        <a href="http://www.umsl.edu/~physics/files/pdfs/Electricity%20and%20Magnetism%20Lab/Exp3.Ohms%20Law.pdf">umsl.edu</a><br>
+                        <a href="http://files.indrapalpatel-com.webnode.com/200000010-98b7b9aa96/verification%20of%20ohms%20law.pdf">Indrapal Patel - webnode.com - Verification of Ohm's Law</a><br>
+                        <a href="https://www.allaboutcircuits.com/textbook/direct-current/chpt-2/voltage-current-resistance-relate/">All About Circuits</a><br>
+                        A Course In Electrical And Electronic Measurements And Instrumentation - A.K. Sawhney, Puneet Sawhney<br>
+                    </p>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container row border rounded my-2" id="practical">
+        <div class="container" id="dashboard" style="border:none;">
+            <table class="table table-bordered mx-1 my-3">
+                <tr>
+                    <form action="/ohmlaw" method="POST">
+                        <fieldset id="controls">
+                            <td style="width:400px;">
+                                <br><br>
+                                <label for="resistance">Resistance Setting&nbsp;</label>
+                                <input type="range" name="resistance" id="resistance" min="0.1" max="10"
+                                    value={{setvalue}} oninput="this.nextElementSibling.value = this.value; " step=0.1
+                                    {{disabled_set}}>
+                                &nbsp;&nbsp;=&nbsp;
+                                <output>
+                                    {{setvalue}}
+                                </output> ohm
+                                <br><br>
+                                <label
+                                    for="voltage">Battery Voltage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input type="range" name="voltage" value="{% for record in allrecord %}{% if allrecord[loop.index] %}{% elif allrecord %}{{allrecord[loop.index-1].voltage}}{% endif %}{% endfor %}" id="voltage" min="0" max="100" onsuspend="this.nextElementSibling.value = this.value"
+                                    oninput="this.nextElementSibling.value = this.value" step=0.1 {{disabled_append}}>
+                                &nbsp;&nbsp;=&nbsp;
+                                <output>
+                                    {% for record in allrecord %}
+                                    {% if allrecord[loop.index] %}
+                                    {% elif allrecord %}
+                                    {{allrecord[loop.index-1].voltage}}
+                                    {% endif %}
+                                    {% endfor %}
+                                </output> volt
+                                <br>
+                            </td>
+                            <td style="width: 50px" class="text-center">
+                                <br>
+                                <button type="submit" class="btn btn-sm btn-outline-dark"
+                                    onsubmit="event.preventDefault()" name="CRDohm" value="Set" {{disabled_set}}>Set
+                                    resistance
+                                </button><br><br>
+                                <button type="submit" id="append" class="btn btn-sm btn-outline-dark"
+                                    onsubmit="event.preventDefault();" onclick="" name="CRDohm" value="Append"
+                                    {{disabled_append}}>Plug values</button><br><br>
+                                <button type="submit" class="btn btn-sm btn-outline-dark"
+                                    onsubmit="event.preventDefault()" name="CRDohm" value="Reset">Reset
+                                </button><br><br>
+                            </td>
+                        </fieldset>
+                    </form>
+                    <td class="text-center" style="position: relative; text-align: center;">
+                        <div style="position: relative;">
+                            <img id="imageid" src="{% if circ %}{{url_for('static', filename='ohmlawcirc.png')}}{% else %}{{url_for('static', filename='ohmlawcirc_open.png')}}{% endif %}"
+                                                         
+                            alt="{{ circ }}" height="70%" width="70%">
+                            <div style="position: absolute; top:43%; right: 32%;">{% if setvalue %}
+                                = {{setvalue}} ohm   
+                                {% endif %}
+                            </div>
+                            <div style="position: absolute; top:87%; right: 3%;">{% for record in allrecord %}
+                                {% if allrecord[loop.index] %}
+                                {% elif allrecord %}
+                                = {{allrecord[loop.index-1].voltage}} volt
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div style="position: absolute; top:11%; right: 33%;">{% for record in allrecord %}
+                                {% if allrecord[loop.index] %}
+                                {% elif allrecord %}
+                                {{allrecord[loop.index-1].voltage}} volt
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div style="position: absolute; top:66%; right: 51%; color: blue;"> {% for record in
+                                allrecord %}
+                                {% if allrecord[loop.index] %}
+                                {% elif allrecord %}
+                                {{allrecord[loop.index-1].current}} amp
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="container row border rounded mx-0 my-3" id="plot">
+            <img id="plotgraph" src="{{ url_for('static', filename='ohmlaw.png') }}"
+                style="padding-left: 40px; padding-right: 40px;" alt="Plot will appear here" height="480" width="1050"
+                style="border-color: black;">
+            <table class="table table-hover table-sm text-center table-bordered my-lg-5" style="border-color: black;">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="border-color: black;">Voltage (volt)</th>
+                        <th class="text-center" style="border-color: black;">Resistance (ohm)</th>
+                        <th class="text-center" style="border-color: black;">Current (amp)</th>
+                        <th class="text-center" style="border-color: black;">Deletion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in allrecord %}
+                    <tr>
+                        <td id="v" style="border-color: black;">{{record.voltage}}</td>
+                        <td id="r" style="border-color: black;">{{setvalue}}</td>
+                        <td style="border-color: black;">
+                            <p style="color: blue;">{{record.current}}</p>
+                        </td>
+                        <td style="border-color: black;">
+                            <form action="/ohmlaw" method="POST" autocomplete="off">
+                                <button type="submit" class="btn btn-outline-dark" name="CRDohm"
+                                    value="Delete">Delete</button>
+                                <input type="hidden" name="reference" value="{{loop.index}}">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Use any element to open the sidenav -->
+    <div id="open" class="container row my-2">
+        <button class="btn btn-outline-dark btn-lg btn-block" type="button" onclick="openNav()">
+            Observations
+        </button>
+    </div>
+
+</div>
+
+<div id="mySidenav" class="sidenav">
+
+    <div class="container my-4" id="observations2">
+        <h6 style="color: brown;">The resistance is set at {{setvalue}} ohm</h6>
+        <table class="table table-hover table-sm text-center table-bordered" style="border-color: black;">
+            <thead>
+                <tr>
+                    <th class="text-center" style="border-color: black;">Voltage (volt)</th>
+                    <th class="text-center" style="border-color: black;">Current (amp)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in allrecord %}
+                <tr>
+                    <td style="border-color: black;">{{record.voltage}}</td>
+                    <td style="border-color: black;">
+                        <p style="color: blue;">{{record.current}}</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <div><button class="btn btn-lg closebtn btn-outline-dark" onclick="closeNav()">Click to close</button></div>
+    </div>
+
+
+
+</div>
+{% endblock content%}
+
+
+{% block scripts %}
+<script>
+
+    /* Set the width of the side navigation to 600px and the left margin of the page content to 400px */
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "600px";
+        document.getElementById("main").style.marginLeft = "300px";
+        document.getElementById("open").style.display = "none";
+    }
+
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("open").style.display = "block";
+    }
+
+</script>
+{% endblock scripts %}
+
