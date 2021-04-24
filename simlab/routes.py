@@ -20,41 +20,41 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 
-
+common_description ='In this experiment we will perform ..'
 
 experiments={
     'aE':{
         'name'         :  'Analog Electronics',
         'experiments'  :  [
-                                ['aE/ae01','pn junction diode iv characterstics',' description', 'image']
+                                ['aE/ae01','pn junction diode iv characterstics',common_description, 'pnJunctionHero.png']
                             ]
     },
     'dcM1':{
         'name'          : 'DC Machines 1',
         'experiments'   :  [
-                                ['dcM1/dcm01','Torque-Slip characterstics', 'description', 'image']
+                                ['dcM1/dcm01','Torque-Slip characterstics', common_description, 'dcMachinetslhero.jpeg']
                             ]
     },
     'eMes':{
         'name'          : 'Electrical Measurements',
         'experiments'   : [
-                                ['ohmlaw',"Ohm's Law", 'description', 'image'],
-                                ['desauty',"DeSauty's Bridge", 'description''image'],
-                                ['wheatstone',"WheatStone Bridge", 'description''image'],
+                                ['ohmlaw',"Ohm's Law", common_description, 'ohmLawhero.jpg'],
+                                ['desauty',"DeSauty's Bridge", common_description, 'desautyhero.jpg'],
+                                ['wheatstone',"WheatStone Bridge", common_description, 'wheatStonehero.png'],
                                 
                             ]
     },
     'icApp':{
     'name'          : 'IC Applications',
     'experiments'   : [
-                            ['icApp/icApp01','Low Pass Filter', 'description', 'image'],
-                            ['icApp/icApp02','High Pass Filter', 'description', 'image'],
+                            ['icApp/icApp01','Low Pass Filter', common_description, 'lowPassHero.png'],
+                            ['icApp/icApp02','High Pass Filter', common_description, 'highPassHero.png'],
                         ]
     },
     'drives':{
     'name'          : 'Electrical Drives',
     'experiments'   : [
-                            ['chopper','Speed Control of DC Motor using TYPE-A Chopper', 'description', 'image'],
+                            ['chopper','Speed Control of DC Motor using TYPE-A Chopper', common_description, 'drivesHero.jpg'],
                         ]
     },
 

@@ -48,7 +48,7 @@
   </header>
 
     <div id="landing">
-      <div id="main"></div>
+      <canvas class="webgl"></canvas>
     </div>
 
 
@@ -67,7 +67,7 @@
     <script src="https://cdn.rawgit.com/bradley/Blotter/3007fe6e/build/materials/rollingDistortMaterial.js"></script>
     
     
-    <script src="{{url_for('static', filename='js/landing.js') }}"></script>
+    <script type="module" src="{{url_for('static', filename='js/landing.js') }}"></script>
 
   </body>
 </html>

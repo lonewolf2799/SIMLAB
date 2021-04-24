@@ -7,7 +7,7 @@
     <h1>{{ course['name'] }}</h1>
     {% for experiment in course['experiments'] %}
     <div class="card my-5" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <img class="card-img-top" src="{{ url_for('static',filename =experiment[3]) }}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{ experiment[1] }}</h5>
           <p class="card-text">{{ experiment[2] }}</p>
